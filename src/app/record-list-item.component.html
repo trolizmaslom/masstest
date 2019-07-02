@@ -1,0 +1,10 @@
+<div class="d-flex ">
+  <button
+    type="button"
+    [routerLink]="['/record', this.element.id]"
+    class="btn btn-block btn-outline-secondary mb-1">
+    {{this.element.name}}
+  </button>
+  <button (click)="deleteOne(this.element.id)" class="btn btn-danger mb-1 ml-1">Delete</button>
+
+</div>

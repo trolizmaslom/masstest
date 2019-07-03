@@ -8,10 +8,10 @@
           </div>
           <div class="col-8" [ngStyle]="{'display': edit ? 'block' : 'none'}">
             <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
-              <h3>{{ item?.name }}</h3>
-              <p>{{ item?.content }}</p>
+              <p> Name: {{ item?.name }}</p>
               <input type="text" name="name" ngModel [value]=" item?.name " class="form-control mb-1" required>
-              <input type="text" name="content" ngModel value="{{ item?.content }}" class="form-control mb-1" requred>
+              <p>Content: {{ item?.content }}</p>
+              <input type="text" name="content" ngModel value="{{ item?.content }}" class="form-control mb-1" required>
               <button
                 type="submit"
                 class="btn btn-dark btn-block"  >Save</button>
@@ -22,10 +22,13 @@
           </div>
         </div>
         <hr>
-        <div class="container" *ngIf="item?.comments.length > 0">
-          <div class="card" *ngFor="let comment of item.comments_item">
-            <div class="card-body ">
+        <div class="container pt-3 pb-3" *ngIf="item?.comments.length > 0" style="background-color: aliceblue">
+          <h5>comments:</h5>
+          <hr>
+          <div class="card mb-1"  *ngFor="let comment of item.comments_item">
+            <div class="card-body">
               <h5 class="card-title">Author: {{ comment?.author}}</h5>
+              <p class="card-text" style="font-size: 10px; color: rgba(0,0,0,0.64);">{{   comment?.created_at | date  }}</p>
               <p class="card-text">{{ comment?.content }}</p>
             </div>
           </div>

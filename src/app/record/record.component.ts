@@ -19,7 +19,7 @@ export class RecordComponent implements OnInit, OnDestroy{
     public fireService: FirebaseService,
     private route: ActivatedRoute,
     private setings: SettingsService,
-    private local: LocalStoreService) {  }
+    private local: LocalStoreService) {}
 
   ngOnInit() {
     if (this.setings.firebaseStore) {
@@ -38,9 +38,16 @@ export class RecordComponent implements OnInit, OnDestroy{
     } else {
         this.local.getRecordByID(this.route.snapshot.params['id']);
     }
-    this.subscription = this.route.params.subscribe( (params) => {
-       this.local.getRecordByID(params['id']);
-    });
+    if (this.setings.firebaseStore) {
+      this.subscription = this.route.params.subscribe( (params) => {
+        this.fireService.getRecordByID(params['id']);
+      });
+    } else {
+      this.subscription = this.route.params.subscribe( (params) => {
+        this.local.getRecordByID(params['id']);
+      });
+    }
+
   }
   ngOnDestroy() {
     if (this.subscription) {this.subscription.unsubscribe(); }

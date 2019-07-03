@@ -25,9 +25,11 @@ export class CreateRecordComponent  implements OnDestroy {
       if (this.setings.firebaseStore) {
         this.subscription = this.fireService.createRecord(record).subscribe(res => {
           this.modal.createModal.next(false);
+          form.reset();
         });
       } else {
         this.local.createRecord(record);
+        form.reset();
       }
 
     }

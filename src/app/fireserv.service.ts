@@ -30,7 +30,7 @@ export class FirebaseService {
             id: item.payload.doc.id,
             author: item.payload.doc.data()['author'],
             content: item.payload.doc.data()['content'],
-            created_at: item.payload.doc.data()['created_at'],
+            created_at: item.payload.doc.data()['created_at'].toDate(),
             parent_id: item.payload.doc.data()['parent_id'],
           };
           this.arrayComments.push(object);
@@ -70,7 +70,7 @@ export class FirebaseService {
   public addComment(comment) {
     return new Observable((observer) => {
       this.db.collection('/comments').add({
-        created_at: firebase.firestore.Timestamp.fromDate(new Date()),
+        created_at: comment.created_at,
         author: comment.author,
         content: comment.content,
         parent_id: comment.parent_id

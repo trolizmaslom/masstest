@@ -53,7 +53,6 @@ export class LocalStoreService {
   }
   private updateDataStorage() {
     this.allRecords.next(this.tempAllData);
-    console.log(this.tempAllData);
     const json = JSON.stringify(this.tempAllData);
     localStorage.setItem('dataSourceAll', json);
   }

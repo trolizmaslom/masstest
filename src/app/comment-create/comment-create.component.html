@@ -1,3 +1,4 @@
+<h5>Add comment:</h5>
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
   <div class="form-group">
     <label class="col-12">
@@ -7,6 +8,9 @@
         name="author"
         class="form-control"
         required
+        #name = "ngModel"
+        minlength="3"
+        maxlength="16"
         ngModel>
     </label>
   </div>
@@ -18,7 +22,9 @@
         name="content"
         class="form-control"
         required
-        ngModel>
+        minlength="5"
+        maxlength="160"
+        ngModel/>
     </label>
   </div>
   <button class="btn btn-primary btn-block" type="submit">Comment</button>

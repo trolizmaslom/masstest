@@ -45,7 +45,6 @@ export class FirebaseService {
     });
   }
   public updateRecord(record) {
-    console.log(record)
     return new Observable((observer) => {
         this.db.collection('/records').doc(record.id)
           .update({name: record.name, content: record.content})

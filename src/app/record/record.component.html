@@ -8,10 +8,10 @@
           </div>
           <div class="col-8" [ngStyle]="{'display': edit ? 'block' : 'none'}">
             <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
-              <p> Name: {{ item?.name }}</p>
-              <input type="text" name="name" ngModel [value]=" item?.name " class="form-control mb-1" required>
-              <p>Content: {{ item?.content }}</p>
-              <input type="text" name="content" ngModel value="{{ item?.content }}" class="form-control mb-1" required>
+              <p> Name:</p>
+              <input type="text" name="name" ngModel [value]=" item?.name " class="form-control mb-1" required maxlength="16">
+              <p>Content: </p>
+              <textarea type="text" name="content" ngModel value="{{ item?.content }}" class="form-control mb-1" required maxlength="160"></textarea>
               <button
                 type="submit"
                 class="btn btn-dark btn-block"  >Save</button>

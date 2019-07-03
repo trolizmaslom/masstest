@@ -14,7 +14,7 @@ export class CommentCreateComponent implements OnDestroy {
   constructor(
     private fireService: FirebaseService,
     private setings: SettingsService,
-    private local: LocalStoreService) { }
+    private local: LocalStoreService) {}
 
   ngOnDestroy() {
     if (this.subscription) {this.subscription.unsubscribe();}

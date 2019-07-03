@@ -1,15 +1,40 @@
-<div class="col">
-  <h3>{{ item?.name }}</h3>
-  <p>{{ item?.content }}</p>
-  <hr>
-  <div class="container" *ngIf="item?.comments.length > 0">
-    <div class="card" *ngFor="let comment of item.comments_item">
-      <div class="card-body ">
-        <h5 class="card-title">Author: {{ comment?.author}}</h5>
-        <p class="card-text">{{ comment?.content }}</p>
+<div class="container-fluid pt-3">
+  <div class="row">
+      <div class="col-8" [ngStyle]="{'display': item ? 'block' : 'none'}">
+        <div class="d-flex justify-content-sm-between">
+          <div class="col-8" [ngStyle]="{'display': !edit ? 'block' : 'none'}">
+            <h3>{{ item?.name }}</h3>
+            <p>{{ item?.content }}</p>
+          </div>
+          <div class="col-8" [ngStyle]="{'display': edit ? 'block' : 'none'}">
+            <form (ngSubmit)="onSubmit(f, item.id)" #f="ngForm">
+              <h3>{{ item?.name }}</h3>
+              <p>{{ item?.content }}</p>
+              <input type="text" name="name" ngModel [value]=" item?.name " class="form-control mb-1" required>
+              <input type="text" name="content" ngModel value="{{ item?.content }}" class="form-control mb-1" requred>
+              <button
+                type="submit"
+                class="btn btn-dark btn-block"  >Save</button>
+            </form>
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-secondary btn-block" (click)="edit = !edit;">Edit</button>
+          </div>
+        </div>
+        <hr>
+        <div class="container" *ngIf="item?.comments.length > 0">
+          <div class="card" *ngFor="let comment of item.comments_item">
+            <div class="card-body ">
+              <h5 class="card-title">Author: {{ comment?.author}}</h5>
+              <p class="card-text">{{ comment?.content }}</p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <app-comment-create [id] = "item?.id"></app-comment-create>
       </div>
+    <div class="col-4">
+      <app-list></app-list>
     </div>
   </div>
-  <hr>
-  <app-comment-create [id] = "item?.id"></app-comment-create>
 </div>

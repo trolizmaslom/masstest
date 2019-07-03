@@ -1,0 +1,11 @@
+<hr>
+<h4 class="pt-3">Data storsge:</h4>
+<div class="d-flex pt-1" >
+  <label class="btn btn-primary btn-block m-1">
+    <input type="radio"  (change)="changedStore($event)"  name="options" [checked]="firenow" value="true"> firebase
+  </label>
+  <label class="btn btn-primary btn-block m-1">
+    <input type="radio" (change)="changedStore($event)" name="options" [checked]="!firenow" value="false"> localstorage
+  </label>
+</div>
+<hr>

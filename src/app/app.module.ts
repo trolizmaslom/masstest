@@ -13,6 +13,7 @@ import { RecordListItemComponent } from './record-list-item.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import {FormsModule} from '@angular/forms';
 import { CreateRecordComponent } from './create-record/create-record.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CreateRecordComponent } from './create-record/create-record.component';
     RecordComponent,
     RecordListItemComponent,
     CommentCreateComponent,
-    CreateRecordComponent
+    CreateRecordComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FirebaseService} from '../fireserv.service';
-import {Observable} from 'rxjs';
 import {ModalService} from '../modal.service';
+import {SettingsService} from '../settings.service';
+import {LocalStoreService} from '../local-store.service';
 
 @Component({
   selector: 'app-list',
@@ -11,16 +12,26 @@ import {ModalService} from '../modal.service';
 export class ListComponent implements OnInit, OnDestroy {
   items;
   private subscription;
-  constructor( public fireService: FirebaseService, private modal: ModalService) {  }
+  constructor(
+    public fireService: FirebaseService,
+    private modal: ModalService,
+    private setings: SettingsService,
+    private local: LocalStoreService) {}
   ngOnInit() {
-     this.subscription = this.fireService.allRecords.subscribe(res => {
-        this.items = res;
-     });
+     if (this.setings.firebaseStore) {
+       this.subscription = this.fireService.allRecords.subscribe(res => {
+         this.items = res;
+       });
+     } else {
+        this.subscription = this.local.allRecords.subscribe(res => {
+          this.items = res;
+        });
+     }
   }
   fakeCreate() {
     this.modal.createModal.next(true);
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 

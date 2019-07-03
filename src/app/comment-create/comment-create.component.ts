@@ -1,6 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FirebaseService} from '../fireserv.service';
 import {CommentModel} from '../models/comment.model';
+import {SettingsService} from '../settings.service';
+import {LocalStoreService} from '../local-store.service';
 
 @Component({
   selector: 'app-comment-create',
@@ -10,18 +12,26 @@ import {CommentModel} from '../models/comment.model';
 export class CommentCreateComponent implements OnDestroy {
   @Input() id;
   private subscription;
-  constructor( private fireService: FirebaseService) { }
+  constructor(
+    private fireService: FirebaseService,
+    private setings: SettingsService,
+    private local: LocalStoreService) { }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {this.subscription.unsubscribe();}
   }
   onSubmit(form) {
     if (form.valid) {
       const comment = {
         author: form.value.author,
         content: form.value.content,
-        parent_id: this.id}
-      this.subscription = this.fireService.addComment(comment).subscribe(res => {console.log(res); });
+        parent_id: this.id
+      }
+      if (this.setings.firebaseStore){
+        this.subscription = this.fireService.addComment(comment).subscribe(res => {console.log(res); });
+      } else {
+        this.local.addComment(comment);
+      }
     }
   }
 

@@ -8,7 +8,6 @@ import {ModalService} from './modal.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'masstest';
   showCreatemodal;
   constructor (private  fireService: FirebaseService, private modal: ModalService) {
     this.modal.createModal.subscribe( res => {

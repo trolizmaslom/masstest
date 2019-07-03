@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {RecordModel} from './models/record.model';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import * as firebase from 'firebase';
 import {CommentModel} from './models/comment.model';
 
 @Injectable({providedIn: 'root'})
 export class FirebaseService {
-  allRecords = new Subject();
-  activeRecord = new Subject();
+  allRecords = new BehaviorSubject([]);
+  activeRecord = new BehaviorSubject([]);
   private arrayComments = new Array();
   private arrayRecords = new Array();
   constructor  ( private db: AngularFirestore) {
@@ -43,6 +42,16 @@ export class FirebaseService {
         });
         this.allRecords.next(this.arrayRecords);
       });
+    });
+  }
+  public updateRecord(record) {
+    console.log(record)
+    return new Observable((observer) => {
+        this.db.collection('/records').doc(record.id)
+          .update({name: record.name, content: record.content})
+          .then(() => {
+            observer.next('new record added');
+        });
     });
   }
   public getRecordByID(id) {

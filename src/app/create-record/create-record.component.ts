@@ -1,6 +1,8 @@
 import {Component, OnDestroy, Output} from '@angular/core';
 import {FirebaseService} from '../fireserv.service';
 import {ModalService} from '../modal.service';
+import {SettingsService} from '../settings.service';
+import {LocalStoreService} from '../local-store.service';
 
 @Component({
   selector: 'app-create-record',
@@ -9,7 +11,10 @@ import {ModalService} from '../modal.service';
 })
 export class CreateRecordComponent  implements OnDestroy {
   private subscription;
-  constructor( private fireService: FirebaseService, private modal: ModalService) { }
+  constructor( private fireService: FirebaseService,
+               private modal: ModalService,
+               private setings: SettingsService,
+               private local: LocalStoreService) {}
   onSubmit(form) {
     if (form.valid) {
       const record = {
@@ -17,13 +22,18 @@ export class CreateRecordComponent  implements OnDestroy {
         content: form.value.content,
         comments: []
       }
-      this.subscription = this.fireService.createRecord(record).subscribe(res => {
-        this.modal.createModal.next(false);
-      });
+      if (this.setings.firebaseStore) {
+        this.subscription = this.fireService.createRecord(record).subscribe(res => {
+          this.modal.createModal.next(false);
+        });
+      } else {
+        this.local.createRecord(record);
+      }
+
     }
   }
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+  ngOnDestroy() {
+    if (this.subscription) {this.subscription.unsubscribe();}
   }
   closeModal() {
     this.modal.createModal.next(false);

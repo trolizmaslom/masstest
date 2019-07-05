@@ -8,7 +8,7 @@ import {LocalStoreService} from './local-store.service';
   selector: 'app-record-list-item',
   templateUrl: './record-list-item.component.html'
 })
-export class RecordListItemComponent implements OnDestroy{
+export class RecordListItemComponent implements OnDestroy {
   @Input() element: RecordModel;
   private subscription;
   constructor(
@@ -16,7 +16,7 @@ export class RecordListItemComponent implements OnDestroy{
     private setings: SettingsService,
     private local: LocalStoreService) { }
     ngOnDestroy() {
-      if (this.subscription){this.subscription.unsubscribe();}
+      if (this.subscription) {this.subscription.unsubscribe(); }
     }
   deleteOne(id) {
     if (this.setings.firebaseStore) {

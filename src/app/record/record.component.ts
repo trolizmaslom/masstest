@@ -9,7 +9,7 @@ import {LocalStoreService} from '../local-store.service';
   templateUrl: './record.component.html',
   styleUrls: ['./record.component.scss']
 })
-export class RecordComponent implements OnInit, OnDestroy{
+export class RecordComponent implements OnInit, OnDestroy {
   item;
   edit = false;
   private subscription;
@@ -60,8 +60,8 @@ export class RecordComponent implements OnInit, OnDestroy{
         name: form.value.name,
         content: form.value.content,
         id: id
-      }
-      if (this.setings.firebaseStore){
+      };
+      if (this.setings.firebaseStore) {
         this.subscription = this.fireService.updateRecord(record).subscribe(res => {
           this.edit = false;
         });

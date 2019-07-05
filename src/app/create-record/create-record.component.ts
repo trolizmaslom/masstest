@@ -21,7 +21,7 @@ export class CreateRecordComponent  implements OnDestroy {
         name: form.value.name,
         content: form.value.content,
         comments: []
-      }
+      };
       if (this.setings.firebaseStore) {
         this.subscription = this.fireService.createRecord(record).subscribe(res => {
           this.modal.createModal.next(false);
@@ -35,7 +35,7 @@ export class CreateRecordComponent  implements OnDestroy {
     }
   }
   ngOnDestroy() {
-    if (this.subscription) {this.subscription.unsubscribe();}
+    if (this.subscription) {this.subscription.unsubscribe(); }
   }
   closeModal() {
     this.modal.createModal.next(false);

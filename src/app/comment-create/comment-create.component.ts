@@ -17,7 +17,7 @@ export class CommentCreateComponent implements OnDestroy {
     private local: LocalStoreService) {}
 
   ngOnDestroy() {
-    if (this.subscription) {this.subscription.unsubscribe();}
+    if (this.subscription) {this.subscription.unsubscribe(); }
   }
   onSubmit(form) {
     if (form.valid) {
@@ -26,8 +26,8 @@ export class CommentCreateComponent implements OnDestroy {
         content: form.value.content,
         created_at : new Date(),
         parent_id: this.id
-      }
-      if (this.setings.firebaseStore){
+      };
+      if (this.setings.firebaseStore) {
         this.subscription = this.fireService.addComment(comment).subscribe(res => {
           form.reset();
         });
